@@ -1,11 +1,11 @@
-# LINE Bot Message API Logger
+# LINE Bot Message API 
 
 A serverless application built with AWS SAM (Serverless Application Model) to receive and log webhooks from the LINE Messaging API. This application is deployed to AWS Lambda and API Gateway in the AWS Asia Pacific (Thailand) region.
 
 ## 🏗️ Project Structure
 
 ```
-linebotlogger/
+linebot/
 ├── line-bot-msg-api/          # Lambda function source code (TypeScript)
 │   ├── app.ts                 # Main Lambda handler
 │   ├── tests/                 # Unit tests
