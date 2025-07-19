@@ -13,13 +13,21 @@ Parameters:
     Type: String
     Description: The LINE Channel Secret.
     NoEcho: true # This will hide the value in logs and the AWS console
+  GoogleSheetId:
+    Type: String
+    Description: The ID of the Google Sheet for logging.
+    NoEcho: false
+  GoogleCredentials:
+    Type: String
+    Description: Base64 encoded Google Service Account credentials JSON
+    NoEcho: true
 
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 5 # Increased timeout slightly for potential processing
-    MemorySize: 128
+    Timeout: 10 # Increased timeout for Google Sheets API calls
+    MemorySize: 512 # Increased memory for Google APIs and dependencies
 
     # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
     LoggingConfig:
@@ -39,12 +47,19 @@ Resources:
           # For production, use AWS Secrets Manager or Parameter Store
           LINE_CHANNEL_ACCESS_TOKEN:  !Ref LineChannelAccessToken
           LINE_CHANNEL_SECRET: !Ref LineChannelSecret
+          GOOGLE_SHEET_ID: !Ref GoogleSheetId
+          GOOGLE_CREDENTIALS_BASE64: !Ref GoogleCredentials
       Events:
         LineWebhook: 
           Type: Api
           Properties:
             Path: /webhook # Updated path for LINE webhook
             Method: post # LINE webhooks use POST
+        ManualLogging:
+          Type: Api
+          Properties:
+            Path: /log-manual-message # Endpoint for manually logging LINE OA messages
+            Method: post
     Metadata: # Manage esbuild properties
       BuildMethod: esbuild
       BuildProperties:

@@ -2,11 +2,11 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lambdaHandler } from '../../app';
 import { expect, describe, it } from '@jest/globals';
 
-describe('Unit test for app handler', function () {
+describe('Basic handler tests', function () {
     it('verifies successful response for a valid webhook event', async () => {
         const event: APIGatewayProxyEvent = {
             httpMethod: 'post',
-            body: JSON.stringify({ events: [] }), // Provide a valid body for the LINE webhook format
+            body: JSON.stringify({ events: [] }),
             headers: {},
             isBase64Encoded: false,
             multiValueHeaders: {},
@@ -60,8 +60,6 @@ describe('Unit test for app handler', function () {
     });
 
     it('verifies 400 response when body is missing', async () => {
-        // Create a mock event with a null body
-        // Using Partial<T> is a type-safe way to create mock objects with only the required properties for a test.
         const event: Partial<APIGatewayProxyEvent> = {
             body: null,
         };
