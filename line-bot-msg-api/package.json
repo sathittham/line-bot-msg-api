@@ -1,12 +1,13 @@
 {
-  "name": "linelogger",
+  "name": "line-bot-msg-api",
   "version": "1.0.0",
-  "description": "hello world sample for NodeJS",
+  "description": "Sample template to create LINE Bot using LINE Messaging API, AWS Lambda, and AWS API Gateway and SAM CLI with TypeScript",
   "main": "app.js",
   "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
   "author": "SAM CLI",
   "license": "MIT",
   "scripts": {
+    "clean": "rimraf dist",
     "unit": "jest",
     "lint": "eslint '*.ts' --quiet --fix",
     "compile": "tsc",

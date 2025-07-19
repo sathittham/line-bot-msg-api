@@ -1,0 +1,15 @@
+{
+  "name": "line-bot-msg-api-root",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Root package for managing the line-bot-msg-api SAM application",
+  "scripts": {
+    "clean": "rimraf .aws-sam && (cd line-bot-msg-api && npm run clean)",
+    "build": "npm run clean && sam build",
+    "deploy": "sam deploy"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.7"
+  }
+}
+

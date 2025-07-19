@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">79.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/56</span>
+                <span class='fraction'>53/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.94% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/17</span>
+                <span class='fraction'>9/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">79.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/56</span>
+                <span class='fraction'>53/67</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -119,7 +119,18 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -127,10 +138,10 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -160,13 +171,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -175,26 +184,40 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { WebhookEvent } from '@line/bot-sdk';
+import { Client, WebhookEvent } from '@line/bot-sdk';
 import * as dotenv from 'dotenv';
 dotenv.config();
 &nbsp;
-/**
- *
- * Event doc: https://docs.aws.amazon.com/apigateway/<span class="branch-0 cbranch-no" title="branch not covered" >latest/developer</span>guide/set-up-lam<span class="branch-0 cbranch-no" title="branch not covered" >bda-proxy-integration</span>s.html#api-gateway-simple-proxy-for-lambda-input-format
- * @param {Object} event - API Gateway Lambda Proxy Input Format
-<span class="branch-0 cbranch-no" title="branch not covered" > *</span>
-<span class="branch-0 cbranch-no" title="branch not covered" > * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set</span>-up-lambda-proxy-integrations.html
- * @returns {Object} object - API Gateway Lambda Proxy Output Format
- *
- */
-&nbsp;
-export const lambdaHandler = async (event: APIGatewayProxyEvent)<span class="branch-0 cbranch-no" title="branch not covered" >: <span class="fstat-no" title="function not covered" >Promise&lt;APIGatewayProxyResult&gt; =&gt; {</span></span>
-    // For demonstration, you can log to confirm variables are loaded.
-    // In production, avoid loggin<span class="branch-0 cbranch-no" title="branch not covered" >g sensitive </span>secrets directly.
-    console.log('Channel Access Token:', process.env.LINE_CHANNEL_ACCESS_TOKEN ? 'Loaded' : 'Not Loaded');
-    console.log('Channel Secret:', process.env.LINE_CHANNEL_SECRET ? 'Loaded' : 'Not Loaded');
+// Create a new LINE SDK client instance.
+// It's be<span class="branch-0 cbranch-no" title="branch not covered" >st practice to c</span>reate this outsi<span class="branch-0 cbranch-no" title="branch not covered" >de the handler to all</span>ow for connection reuse.
+const client = new Client({
+    channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || '',
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >    channelSecret: process.env.LINE_CHANNEL_SECRET || '',</span></span></span>
+<span class="cstat-no" title="statement not covered" >});</span>
+<span class="cstat-no" title="statement not covered" ></span>
+export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise&lt;APIGatewayProxyResult&gt; =&gt; {
+    // Ensure environment variables are loaded, which are required for the client to work.
+<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >    if (!process.env.LINE_CHANNEL_ACCESS_TOK</span></span>EN || !process.env.LINE_CHANNEL_SECRET) {
+        console.error('Missing LINE environment variables.<span class="branch-0 cbranch-no" title="branch not covered" > Please chec</span>k your configuration.');
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Server configuration error: Missing credentials' }),
+        };
+    }
 &nbsp;
     // The request body from API Gateway is a string.
     if (!event.body) {
@@ -210,27 +233,37 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent)<span class="bra
     try {
         const webhookEvents: WebhookEvent[] = JSON.parse(event.body).events;
 &nbsp;
-        // Log each event from the webhook
-        if (webhookEvents &amp;&amp; webhookEvents.length &gt; 0) {
-            for (const webhookEvent of webhookEvents) {
-                console.log('Parsed LINE Webhook Event:', JSON.stringify(webhookEvent, null, 2));
-                // In a real application, you might store this in DynamoDB, S3, or another database.
-            }
-        }
+        // Process all webhook events. Promise.all() ensures w<span class="branch-0 cbranch-no" title="branch not covered" >e wait</span> for all replies to complete.
+        await Promise.<span class="branch-0 cbranch-no" title="branch not covered" >all(</span>
+            webhookEvents.map(async (webhookEvent) =&gt; {
+                // We only handle message events, and specifically text messages.
+                if (webhookEvent.type === 'message' &amp;&amp; webhookEvent.message.type ===<span class="branch-0 cbranch-no" title="branch not covered" > 'text') {</span>
+<span class="cstat-no" title="statement not covered" >                    const { replyToken } = webhookEvent;</span>
+<span class="cstat-no" title="statement not covered" >                    const { text } = webhookEvent.message;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >                    console.log(`Received text message: "${text}"`);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+                    // Echo the received text message back to the user.
+                    return client.replyMessage(replyToken, { type: 'text', text });
+                }
+                // You can add handlers for other event types (e.g., stickers, follows) here.
+                console.log('Received non-text event:', webhookEvent.type);
+            }),
+        );
 &nbsp;
-        // LINE webhook requires a 200 OK response to acknowledge r<span class="branch-0 cbranch-no" title="branch not covered" >eceipt.</span>
+        // LINE webhook requires a 200 OK response to acknowledge receipt.
         return {
             statusCode: 200,
-            body: JSON.stringify({ status<span class="branch-0 cbranch-no" title="branch not covered" >: 'success' }),</span>
+            body: JSON.stringify({ status: 'success' }),
         };
     } catch (err) {
-        console.error('Error processing webhook:', err);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: 'Error processing webhook' }),
-        };
-    }
-};
+        console.error('Error processing webhook:', err instanceof Error ? err.message : err);
+<span class="cstat-no" title="statement not covered" >        return {</span>
+<span class="cstat-no" title="statement not covered" >            statusCode: 500,</span>
+<span class="cstat-no" title="statement not covered" >            body: JSON.stringify({ message: 'Error processing webhook' }),</span>
+<span class="cstat-no" title="statement not covered" >        };</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -238,7 +271,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent)<span class="bra
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-19T08:28:45.913Z
+                at 2025-07-19T09:31:31.637Z
             </div>
         <script src="prettify.js"></script>
         <script>
