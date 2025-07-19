@@ -78,7 +78,7 @@ const logToGoogleSheet = async (
     try {
         // Convert to Bangkok time (UTC+7)
         const now = new Date();
-        const bkkTime = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+        const bkkTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
         const timestamp = bkkTime.toISOString().replace('T', ' ').substring(0, 19);
 
         // A: Timestamp (BKK), B: Direction, C: UserID, D: DisplayName, E: MessageType, F: MessageContent, G: MessageID
@@ -124,7 +124,7 @@ const handleManualMessageLogging = async (event: APIGatewayProxyEvent): Promise<
         }
 
         const { userId, message } = JSON.parse(event.body);
-        
+
         if (!userId || !message) {
             return {
                 statusCode: 400,
@@ -134,12 +134,12 @@ const handleManualMessageLogging = async (event: APIGatewayProxyEvent): Promise<
 
         // Log the manual message as outgoing from LINE OA
         await logToGoogleSheet('BOT', 'BOT', 'text', message, '', 'outgoing');
-        
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ 
-                status: 'success', 
-                message: 'Manual message logged successfully' 
+            body: JSON.stringify({
+                status: 'success',
+                message: 'Manual message logged successfully',
             }),
         };
     } catch (error) {
@@ -187,7 +187,7 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
         await Promise.all(
             webhookEvents.map(async (webhookEvent) => {
                 console.log(`Processing webhook event type: ${webhookEvent.type}`);
-                
+
                 // Handle message events (incoming messages from users)
                 if (webhookEvent.type === 'message' && webhookEvent.message.type === 'text') {
                     const { replyToken } = webhookEvent;
@@ -206,14 +206,14 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                             } catch (profileError) {
                                 console.warn('Could not fetch user profile:', profileError);
                             }
-                            
+
                             await logToGoogleSheet(
-                                webhookEvent.source.userId, 
-                                displayName, 
-                                'text', 
-                                text, 
-                                webhookEvent.message.id || '', 
-                                'incoming'
+                                webhookEvent.source.userId,
+                                displayName,
+                                'text',
+                                text,
+                                webhookEvent.message.id || '',
+                                'incoming',
                             );
                         } catch (error) {
                             console.error('Failed to log incoming message to Google Sheet:', error);
@@ -225,7 +225,7 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                     // Handle echo control commands
                     let replyText: string;
                     const userId = webhookEvent.source.userId;
-                    
+
                     if (text.toLowerCase() === 'start echo') {
                         if (userId) {
                             userEchoState.set(userId, true);
@@ -243,7 +243,7 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                     } else {
                         // Check if echo is enabled for this user (default to false)
                         const isEchoEnabled = userId ? userEchoState.get(userId) || false : false;
-                        
+
                         if (isEchoEnabled) {
                             replyText = text; // Echo the message back
                         } else {
@@ -257,15 +257,10 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                     // Log outgoing message to Google Sheet
                     if (webhookEvent.source.userId) {
                         try {
-                            await logToGoogleSheet(
-                                'BOT', 
-                                'BOT', 
-                                'text', 
-                                replyText, 
-                                '', 
-                                'outgoing'
+                            await logToGoogleSheet('BOT', 'BOT', 'text', replyText, '', 'outgoing');
+                            console.log(
+                                `Logged both incoming and outgoing messages for user: ${webhookEvent.source.userId}`,
                             );
-                            console.log(`Logged both incoming and outgoing messages for user: ${webhookEvent.source.userId}`);
                         } catch (error) {
                             console.error('Failed to log outgoing message to Google Sheet:', error);
                         }
@@ -273,23 +268,23 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
 
                     return replyResult;
                 }
-                
+
                 // Handle delivery events (when messages are delivered to users)
                 else if (webhookEvent.type === 'delivery') {
                     console.log('Delivery event received:', JSON.stringify(webhookEvent, null, 2));
                     // Note: Delivery events don't contain message content, only delivery confirmation
                     return Promise.resolve();
                 }
-                
+
                 // Handle other message types (stickers, images, etc.)
                 else if (webhookEvent.type === 'message') {
                     console.log(`Received ${webhookEvent.message.type} message from user`);
-                    
+
                     // Log non-text messages
                     if (webhookEvent.source.userId) {
                         const messageType = webhookEvent.message.type;
                         let messageContent = '';
-                        
+
                         // Extract content based on message type
                         switch (messageType) {
                             case 'image':
@@ -306,7 +301,9 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                                 break;
                             case 'location':
                                 const location = webhookEvent.message as any;
-                                messageContent = `Location: ${location.title || 'Unknown'} (${location.latitude}, ${location.longitude})`;
+                                messageContent = `Location: ${location.title || 'Unknown'} (${location.latitude}, ${
+                                    location.longitude
+                                })`;
                                 break;
                             case 'sticker':
                                 const sticker = webhookEvent.message as any;
@@ -315,7 +312,7 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                             default:
                                 messageContent = `${messageType} message`;
                         }
-                        
+
                         try {
                             // Get display name if available
                             let displayName = '';
@@ -325,49 +322,42 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                             } catch (profileError) {
                                 console.warn('Could not fetch user profile for non-text message:', profileError);
                             }
-                            
+
                             await logToGoogleSheet(
-                                webhookEvent.source.userId, 
-                                displayName, 
-                                messageType, 
-                                messageContent, 
-                                webhookEvent.message.id || '', 
-                                'incoming'
+                                webhookEvent.source.userId,
+                                displayName,
+                                messageType,
+                                messageContent,
+                                webhookEvent.message.id || '',
+                                'incoming',
                             );
                             console.log(`Logged ${messageType} message from user: ${webhookEvent.source.userId}`);
                         } catch (error) {
                             console.error(`Failed to log ${messageType} message:`, error);
                         }
                     }
-                    
+
                     // Send acknowledgment reply
                     if (webhookEvent.replyToken) {
                         const replyText = `🤖 I received your ${webhookEvent.message.type} message!`;
-                        const replyResult = await client.replyMessage(webhookEvent.replyToken, { 
-                            type: 'text', 
-                            text: replyText 
+                        const replyResult = await client.replyMessage(webhookEvent.replyToken, {
+                            type: 'text',
+                            text: replyText,
                         });
-                        
+
                         // Log the bot's reply
                         if (webhookEvent.source.userId) {
                             try {
-                                await logToGoogleSheet(
-                                    'BOT', 
-                                    'BOT', 
-                                    'text', 
-                                    replyText, 
-                                    '', 
-                                    'outgoing'
-                                );
+                                await logToGoogleSheet('BOT', 'BOT', 'text', replyText, '', 'outgoing');
                             } catch (error) {
                                 console.error('Failed to log reply to non-text message:', error);
                             }
                         }
-                        
+
                         return replyResult;
                     }
                 }
-                
+
                 // Handle follow/unfollow events
                 else if (webhookEvent.type === 'follow') {
                     console.log('User followed the bot');
@@ -381,32 +371,31 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                             } catch (profileError) {
                                 console.warn('Could not fetch user profile for follow event:', profileError);
                             }
-                            
+
                             await logToGoogleSheet(
-                                webhookEvent.source.userId, 
-                                displayName, 
-                                'system', 
-                                'User followed the bot', 
-                                '', 
-                                'incoming'
+                                webhookEvent.source.userId,
+                                displayName,
+                                'system',
+                                'User followed the bot',
+                                '',
+                                'incoming',
                             );
                         } catch (error) {
                             console.error('Failed to log follow event:', error);
                         }
                     }
                     return Promise.resolve();
-                }
-                else if (webhookEvent.type === 'unfollow') {
+                } else if (webhookEvent.type === 'unfollow') {
                     console.log('User unfollowed the bot');
                     if (webhookEvent.source.userId) {
                         try {
                             await logToGoogleSheet(
-                                webhookEvent.source.userId, 
-                                '', 
-                                'system', 
-                                'User unfollowed the bot', 
-                                '', 
-                                'incoming'
+                                webhookEvent.source.userId,
+                                '',
+                                'system',
+                                'User unfollowed the bot',
+                                '',
+                                'incoming',
                             );
                         } catch (error) {
                             console.error('Failed to log unfollow event:', error);
@@ -414,7 +403,7 @@ const handleLineWebhook = async (event: APIGatewayProxyEvent): Promise<APIGatewa
                     }
                     return Promise.resolve();
                 }
-                
+
                 // You can add handlers for other event types (e.g., stickers, follows) here.
                 console.log('Received unhandled event type:', webhookEvent.type);
             }),

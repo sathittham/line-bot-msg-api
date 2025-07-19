@@ -35,7 +35,7 @@ const logLineOAMessage = async (userId: string, text: string, timestamp: string)
 
     try {
         const values = [[timestamp, userId, 'outgoing_manual', text]];
-        
+
         await sheets.spreadsheets.values.append({
             auth,
             spreadsheetId,
@@ -68,22 +68,21 @@ const fetchLineOAMessages = async (): Promise<void> => {
 
         // LINE Insight API to get message statistics
         const insightUrl = `https://api.line.me/v2/bot/insight/message/delivery?date=${dateString}`;
-        
+
         const response = await axios.get(insightUrl, {
             headers: {
-                'Authorization': `Bearer ${channelAccessToken}`,
-                'Content-Type': 'application/json'
-            }
+                Authorization: `Bearer ${channelAccessToken}`,
+                'Content-Type': 'application/json',
+            },
         });
 
         console.log('LINE Insight API response:', JSON.stringify(response.data, null, 2));
 
         // Unfortunately, LINE Insight API doesn't provide individual message content
         // It only provides statistics. We'll need to use a different approach.
-        
+
         // Alternative: Check for webhook events we might have missed
         // or implement a different tracking mechanism
-        
     } catch (error) {
         console.error('Error fetching LINE OA messages:', error);
         if (axios.isAxiosError(error)) {
