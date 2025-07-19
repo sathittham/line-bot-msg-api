@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752912620026" clover="3.2.0">
-  <project timestamp="1752912620026" name="All files">
+<coverage generated="1752913725929" clover="3.2.0">
+  <project timestamp="1752913725929" name="All files">
     <metrics statements="56" coveredstatements="56" conditionals="17" coveredconditionals="9" methods="5" coveredmethods="4" elements="78" coveredelements="69" complexity="0" loc="56" ncloc="56" packages="1" files="1" classes="1"/>
     <file name="app.ts" path="/Users/sathittham/Documents/Urbanice/Bot/lineBotLogger/linebotlogger/linelogger/app.ts">
       <metrics statements="56" coveredstatements="56" conditionals="17" coveredconditionals="9" methods="5" coveredmethods="4"/>
