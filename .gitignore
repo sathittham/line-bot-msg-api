@@ -1,0 +1,14 @@
+# Environment variables
+.env
+linelogger/.env
+
+# Node dependencies
+node_modules/
+linelogger/node_modules/
+
+# SAM build artifacts
+.aws-sam/
+
+# Compiled TypeScript
+linelogger/dist/
+
