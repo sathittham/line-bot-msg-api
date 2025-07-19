@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf .aws-sam && (cd line-bot-msg-api && npm run clean)",
     "build": "npm run clean && sam build",
-    "deploy": "sam deploy"
+    "deploy": "npm run build && ./deploy.sh"
   },
   "devDependencies": {
     "rimraf": "^5.0.7"

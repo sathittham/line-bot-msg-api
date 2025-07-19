@@ -126,9 +126,9 @@ npm run deploy
 
 After successful deployment, you'll receive:
 
-### Current Deployment (Thailand Region)
-- **API Gateway Endpoint**: `https://iosb06hluc.execute-api.ap-southeast-7.amazonaws.com/Prod/webhook`
-- **Lambda Function**: `line-bot-msg-api-LineLoggerFunction-zeI6cw6KA1q6`
+### Example Deployment Outputs
+- **API Gateway Endpoint**: The `LineLoggerApi` value from the `sam deploy` output.
+- **Lambda Function**: The `LineLoggerFunction` value from the `sam deploy` output
 - **Region**: `ap-southeast-7` (Asia Pacific - Thailand)
 - **Stack Name**: `line-bot-msg-api`
 
@@ -139,14 +139,16 @@ Configure your LINE bot to use the deployed webhook URL:
 1. Go to [LINE Developers Console](https://developers.line.biz/)
 2. Select your channel
 3. Go to "Messaging API" tab
-4. Set **Webhook URL** to: `https://iosb06hluc.execute-api.ap-southeast-7.amazonaws.com/Prod/webhook`
+4. Set **Webhook URL** to the `LineLoggerApi` value from the `sam deploy` output.
+Prod/webhook`
 5. Enable "Use webhook"
 6. Verify the webhook connection
 
 ## 📊 Monitoring & Logs
 
 ### CloudWatch Logs
-- Log Group: `/aws/lambda/line-bot-msg-api-LineLoggerFunction-zeI6cw6KA1q6`
+- **Log Group**: The name will be based on your function name, e.g., `/aws/lambda/line-bot-msg-api-LineLoggerFunction-xxxxxx`
+
 - View logs in AWS CloudWatch console
 
 ### Local Logs

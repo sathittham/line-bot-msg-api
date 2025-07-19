@@ -20,9 +20,6 @@ if [ -z "$LINE_CHANNEL_ACCESS_TOKEN" ] || [ -z "$LINE_CHANNEL_SECRET" ]; then
   exit 1
 fi
 
-echo "Building the application..."
-sam build
-
 echo "Deploying the application with secrets from the .env file..."
 sam deploy --parameter-overrides \
   "LineChannelAccessToken=$LINE_CHANNEL_ACCESS_TOKEN" \
